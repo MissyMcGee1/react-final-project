@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Weather.css";
+import WeatherIcon from "./WeatherIcon";
 
 import WeatherInfo from "./WeatherInfo";
 
@@ -18,6 +19,7 @@ export default function Weather(props) {
       humitity: response.data.main.humitity,
       high: Math.round(response.data.main.temp_max),
       low: Math.round(response.data.main.temp_min),
+      icon: response.data.weather[0].icon,
     });
   }
 
