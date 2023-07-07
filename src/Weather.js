@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Weather.css";
-import FormattedDate from "./FormattedDate";
 
-export default function Weather() {
+import WeatherInfo from "./WeatherInfo";
+
+export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
-  const [city, setCity] = useState(response.data.main.city);
+  const [city, setCity] = useState(props.defaultCity);
   function handleResponse(response) {
-    console.log(response.data);
     setWeatherData({
       ready: true,
       temperature: Math.round(response.data.main.temp),
@@ -21,9 +21,15 @@ export default function Weather() {
     });
   }
 
+  function search() {
+    const apiKey = "c5f0e59acac64258bb92ed027d20c68f";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
-    alert(city);
+    search();
   }
 
   function handleCityChange(event) {
@@ -36,10 +42,7 @@ export default function Weather() {
         <div className="WeatherApp">
           <form className="Search" onSubmit={handleSubmit}>
             <div className="row">
-              <div className="col-5 Cverview">
-                <FormattedDate date={weatherData.date} />
-              </div>
-              <div className="col-5">
+              <div className="col-8">
                 <input
                   type="search"
                   placeholder="Search city..."
@@ -59,47 +62,12 @@ export default function Weather() {
             </div>
           </form>
           <hr />
-          <h2 className="Location">{weatherData.city}</h2>
-
-          <div className="row">
-            <div className="col-md-6">
-              <div className="d-flex WeatherTemperature">
-                <img src="#" alt="weather icon" />
-                <div>
-                  <strong>{weatherData.temperature}</strong>
-                  <span className="Units">°C </span>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <ul>
-                <li>
-                  <span className="ListTitle">High: </span>
-                  <span>{weatherData.high}</span>°
-                </li>
-                <li>
-                  <span className="ListTitle">Low: </span>
-                  <span>{weatherData.low}</span>°
-                </li>
-                <li>
-                  <span className="ListTitle">Wind Speed:</span>
-                  <span>{weatherData.wind}</span>km/h
-                </li>
-              </ul>
-            </div>
-            <div className="weather-description" id="description">
-              {weatherData.description}
-            </div>
-          </div>
+          <WeatherInfo data={weatherData} />
         </div>
       </div>
     );
   } else {
-    const apiKey = "7b6fdad0cbd018949c50c70f72250726";
-    let city = "Christchurch";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(handleResponse);
-
+    search();
     return "Loading....";
   }
 }
