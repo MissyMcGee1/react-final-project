@@ -142,3 +142,33 @@ footer {
   transition: all 200ms ease-in-out;
   text-decoration: none;
 }
+
+.WeatherForecast {
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.WeatherForecast .col-2 {
+  background: rgba(29, 40, 78, 0.7);
+  margin-left: 10px;
+  padding-top: 30px;
+  border: 1px solid rgb(72, 101, 202);
+  border-radius: 10px;
+  max-width: 140px;
+  height: 200px;
+}
+
+.WeatherForecastDate {
+  font-size: 22px;
+  font-weight: 500;
+  color: rgb(171, 189, 255);
+}
+
+.WeatherForecastTemp {
+  font-size: 22px;
+}
+
+.WeatherForecastTempMin {
+  opacity: 0.5;
+}
