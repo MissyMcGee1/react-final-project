@@ -11,6 +11,7 @@ export default function App() {
           <a
             href="https://github.com/MissyMcGee1/react-final-project.git"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Open source code
           </a>{" "}
