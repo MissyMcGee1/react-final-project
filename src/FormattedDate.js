@@ -22,8 +22,8 @@ export default function FormattedDate(props) {
     minutes = `0${minutes}`;
   }
   return (
-    <h1>
+    <h3>
       {day} {hours}:{minutes}{" "}
-    </h1>
+    </h3>
   );
 }
